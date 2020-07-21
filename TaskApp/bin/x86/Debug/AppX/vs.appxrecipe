@@ -30,13 +30,13 @@
     <AppXManifest Include="E:\TaskApp\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-07-21T05:19:59.533</Modified>
+      <Modified>2020-07-21T05:39:25.452</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\TaskApp.exe">
       <PackagePath>entrypoint\TaskApp.exe</PackagePath>
-      <Modified>2020-07-21T05:19:58.056</Modified>
+      <Modified>2020-07-21T05:39:24.547</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\CATCH_ME_IF_YOU_CAN.DESKTOP-VP2MNLD\.nuget\packages\microsoft.data.sqlite.core\3.1.6\lib\netstandard2.0\Microsoft.Data.Sqlite.dll">
       <PackagePath>Microsoft.Data.Sqlite.dll</PackagePath>
@@ -112,6 +112,10 @@
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2020-05-26T05:22:14.380</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\TaskApp\View\Assets\team.png">
+      <PackagePath>View\Assets\team.png</PackagePath>
+      <Modified>2020-07-21T05:33:17.581</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\View\Assets\001.jpg">
       <PackagePath>View\Assets\001.jpg</PackagePath>
       <Modified>2020-07-20T14:34:51.056</Modified>
@@ -158,47 +162,47 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.374</Modified>
+      <Modified>2020-07-21T05:39:24.090</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.374</Modified>
+      <Modified>2020-07-21T05:39:24.090</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\commentsUserControl.xbf">
       <PackagePath>View\commentsUserControl.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.374</Modified>
+      <Modified>2020-07-21T05:39:24.090</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\DashBoard.xbf">
       <PackagePath>View\DashBoard.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.374</Modified>
+      <Modified>2020-07-21T05:39:24.091</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\DetailsOfList.xbf">
       <PackagePath>View\DetailsOfList.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.374</Modified>
+      <Modified>2020-07-21T05:39:24.091</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\MasterUserControl.xbf">
       <PackagePath>View\MasterUserControl.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.374</Modified>
+      <Modified>2020-07-21T05:39:24.091</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\MembersDetails.xbf">
       <PackagePath>View\MembersDetails.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.375</Modified>
+      <Modified>2020-07-21T05:39:24.091</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\TaskDetailedView.xbf">
       <PackagePath>View\TaskDetailedView.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.358</Modified>
+      <Modified>2020-07-21T05:39:24.076</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\TaskList.xbf">
       <PackagePath>View\TaskList.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.366</Modified>
+      <Modified>2020-07-21T05:39:24.083</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\TeamDetails.xbf">
       <PackagePath>View\TeamDetails.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.372</Modified>
+      <Modified>2020-07-21T05:39:24.088</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\View\Teams.xbf">
       <PackagePath>View\Teams.xbf</PackagePath>
-      <Modified>2020-07-21T05:08:43.375</Modified>
+      <Modified>2020-07-21T05:39:24.091</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -206,11 +210,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-07-21T04:41:07.267</Modified>
+      <Modified>2020-07-21T05:33:29.350</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="E:\TaskApp\bin\x86\Debug\Core\TaskApp.exe">
       <PackagePath>TaskApp.exe</PackagePath>
-      <Modified>2020-07-21T05:19:59.519</Modified>
+      <Modified>2020-07-21T05:39:25.442</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

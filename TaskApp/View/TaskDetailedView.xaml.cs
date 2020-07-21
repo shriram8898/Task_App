@@ -38,6 +38,7 @@ namespace TaskApp.View
         public ObservableCollection<comments> com1 = new ObservableCollection<comments>();
         public TaskUtilityDataLayer tu = new TaskUtilityDataLayer();
         public TaskDataLayer tdl = new TaskDataLayer();
+        public EmployeeDataLayer edl = new EmployeeDataLayer();
         public TaskDetailedView()
         {
         }
@@ -163,42 +164,49 @@ namespace TaskApp.View
         }
         private async Task<ObservableCollection<string>> LoadTeamMembers()
         {
+            /* string tableCommand;
+             ObservableCollection<members> teams = new ObservableCollection<members>();
+             ObservableCollection<string> select1 = new ObservableCollection<string>();
+             if (pd.emp.designation == "manager")
+             {
+                 tableCommand = "SELECT * FROM teams WHERE empid='" + pd.emp.id + "';";
+                 select1.Add(pd.emp.name + " " + pd.emp.id);
+                 var items = await DataBase.LoadTeam1(tableCommand);
+                 foreach (string item in items)
+                 {
+                     tableCommand = "SELECT * FROM members WHERE name='" + item + "';";
+                     var teams1 = await DataBase.LoadTeams(tableCommand);
+                     foreach (var it in teams1)
+                         select1.Add(it.empname + " " + it.empid);
+
+                     return select1;
+
+                 }
+                 select1.Add(pd.emp.name + " " + pd.emp.id);
+             }
+             else
+             {
+                 tableCommand = "SELECT * FROM members WHERE empid='" + pd.emp.id + "';";
+                 teams = await DataBase.LoadTeams(tableCommand);
+             }
+
+             foreach (var item in teams)
+             {
+                 tableCommand = "SELECT * FROM members WHERE name='" + item.name + "';";
+                 var assign = await Task.Run(() => DataBase.LoadTeams(tableCommand));
+                 foreach (var vari in assign)
+                 {
+                     string value = vari.empname + " " + vari.empid;
+                     select1.Add(value);
+                 }
+             }
+             return select1;*/
             string tableCommand;
-            ObservableCollection<members> teams = new ObservableCollection<members>();
+            ObservableCollection<Employee> assign;
             ObservableCollection<string> select1 = new ObservableCollection<string>();
-            if (pd.emp.designation == "manager")
-            {
-                tableCommand = "SELECT * FROM teams WHERE empid='" + pd.emp.id + "';";
-                select1.Add(pd.emp.name + " " + pd.emp.id);
-                var items = await DataBase.LoadTeam1(tableCommand);
-                foreach (string item in items)
-                {
-                    tableCommand = "SELECT * FROM members WHERE name='" + item + "';";
-                    var teams1 = await DataBase.LoadTeams(tableCommand);
-                    foreach (var it in teams1)
-                        select1.Add(it.empname + " " + it.empid);
-
-                    return select1;
-
-                }
-                select1.Add(pd.emp.name + " " + pd.emp.id);
-            }
-            else
-            {
-                tableCommand = "SELECT * FROM members WHERE empid='" + pd.emp.id + "';";
-                teams = await DataBase.LoadTeams(tableCommand);
-            }
-
-            foreach (var item in teams)
-            {
-                tableCommand = "SELECT * FROM members WHERE name='" + item.name + "';";
-                var assign = await Task.Run(() => DataBase.LoadTeams(tableCommand));
-                foreach (var vari in assign)
-                {
-                    string value = vari.empname + " " + vari.empid;
-                    select1.Add(value);
-                }
-            }
+            assign = await edl.LoadEmployees();
+            foreach (var vari in assign)
+                select1.Add(vari.name + " " + vari.id);
             return select1;
         }
         private void exit_Click(object sender, RoutedEventArgs e)

@@ -186,6 +186,7 @@
     <Content Include="View\Assets\008.jpg" />
     <Content Include="View\Assets\009.jpg" />
     <Content Include="View\Assets\010.jpg" />
+    <Content Include="View\Assets\team.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
