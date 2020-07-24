@@ -9,10 +9,13 @@ using TaskApp.Data;
 using TaskApp.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -31,12 +34,13 @@ namespace TaskApp.View
         public ObservableCollection<TaskDetails> tds = new ObservableCollection<TaskDetails>();
         public ObservableCollection<string> temp = new ObservableCollection<string>();
         public TaskDetails selected;
+        public int count = 0;
         public TaskDataLayer tdl = new TaskDataLayer();
         public EmployeeDataLayer edl = new EmployeeDataLayer();
+        public ObservableCollection<TaskDetails> search = new ObservableCollection<TaskDetails>();
         public TaskList()
         {
-            this.InitializeComponent();
-           
+            this.InitializeComponent();           
 
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -45,10 +49,7 @@ namespace TaskApp.View
             temp = await LoadTeamMembers();
             MenuFlyoutItemSettings(temp);
             tds = await Task.Run(() => tdl.Get("All", pd.emp));
-            var groups = from c in tds
-                         group c by c.collective;
-            this.cvs.Source = groups;
-            tasks.SelectedIndex = -1;
+            LoadSpecificTask();
 
         }
         private async void Add_task_Click(object sender, RoutedEventArgs e)
@@ -66,7 +67,6 @@ namespace TaskApp.View
 
         private async Task<ObservableCollection<string>> LoadTeamMembers()
         {
-            string tableCommand;
             ObservableCollection<members> teams = new ObservableCollection<members>();
             ObservableCollection<string> select1 = new ObservableCollection<string>();
             if (pd.emp.designation == "manager")
@@ -142,7 +142,7 @@ namespace TaskApp.View
             var startdate = values[0];
             string[] values1 = endDate.Date.ToString().Split('+');
             var enddate = values1[0];
-            if (name == "" || details == "" || asign == "" || coll == "")
+            if (name == "" || details == "" || asign == "" || coll == ""||startdate==""||enddate=="")
                 return;
             else
             {
@@ -190,9 +190,9 @@ namespace TaskApp.View
         {
             contentDialog1.Hide();
         }
-
         private async void filter_Click(object sender, RoutedEventArgs e)
         {
+            count = 0;
             Notask.Visibility = Visibility.Collapsed;
             stark1.Visibility = Visibility.Visible;
             MenuFlyoutItem selectedItemFlyout = sender as MenuFlyoutItem;
@@ -213,13 +213,9 @@ namespace TaskApp.View
                 stark1.Visibility = Visibility.Collapsed;
                 Notask.Visibility = Visibility.Visible;
             }
-            var groups = from c in tds
-                         group c by c.collective;
-            this.cvs.Source = groups;
-            tasks.SelectedIndex = -1;
-            //MessageDialog messageDialog = new MessageDialog("Hello");
-            //await messageDialog.ShowAsync();
+            LoadSpecificTask();
         }
+
         private void MenuFlyoutItemSettings(ObservableCollection<string> temp)
         {
             MenuFlyout flyout = new MenuFlyout();
@@ -235,6 +231,45 @@ namespace TaskApp.View
             {
                 filter.Items.Insert(filter.Items.Count, item);
             }
+        }
+
+        private void SearchBox_QueryChanged(object sender, TextChangedEventArgs e)
+        {
+            if (search != null)
+            {
+                var values = search.Where(a => a.name.ToUpper().Contains(searchitem.Text.ToUpper()));
+                //tds = tds.Where(x => x.name.ToUpper().Contains(values));
+                var groups = from c in values
+                             group c by c.collective;
+                this.cvs.Source = groups;
+            }
+        }
+
+        private void TextBlock_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            LoadSpecificTask();
+        }
+
+        private void LoadSpecificTask()
+        {
+            int iterator;
+            for (iterator = count; iterator < count + 10; iterator++)
+                if (tds.Count > iterator)
+                    search.Add(tds[iterator]);
+                else
+                    break;
+            count += iterator;
+            var groups = from c in search
+                         group c by c.collective;
+            this.cvs.Source = groups;
+            tasks.SelectedIndex = -1;
+        }
+
+        private void scroll_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+            if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight && tds.Count > count)
+                LoadSpecificTask();
         }
     }
 }

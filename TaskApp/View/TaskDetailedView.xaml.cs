@@ -34,7 +34,7 @@ namespace TaskApp.View
         public PassData pd = new PassData();
         public TaskDetails selected = new TaskDetails();
         public ObservableCollection<TaskDetails> tds = new ObservableCollection<TaskDetails>();
-        public ObservableCollection<TaskDetails> source = new ObservableCollection<TaskDetails>();
+        public ObservableCollection<TaskDetails> search = new ObservableCollection<TaskDetails>();
         public ObservableCollection<comments> com1 = new ObservableCollection<comments>();
         public TaskUtilityDataLayer tu = new TaskUtilityDataLayer();
         public TaskDataLayer tdl = new TaskDataLayer();
@@ -42,12 +42,12 @@ namespace TaskApp.View
         public TaskDetailedView()
         {
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             pd = e.Parameter as PassData;
             this.DataContext = pd.Selected;
             this.InitializeComponent();
-            source = pd.tds;
+            search = pd.tds;
             tasks.ItemsSource = pd.tds;
             taskpriority.Items.Clear();
             taskstatus.Items.Clear();
@@ -60,12 +60,14 @@ namespace TaskApp.View
             taskrelated.Items.Add("Other");
             taskrelated.Items.Add("Login");
             taskrelated.Items.Add("sample");
+            var temp = await LoadTeamMembers();
+            MenuFlyoutItemSettings(temp);
             IntializeFrameData();
         }
 
 
         //
-        public async void IntializeFrameData()
+        public void IntializeFrameData()
         {
             completed.Visibility = Visibility.Visible;
             if (!(pd.Selected.Assign_by_id == pd.emp.id || pd.emp.designation == "manager" || pd.emp.designation == "team lead"))
@@ -146,7 +148,7 @@ namespace TaskApp.View
             }
             Assignto.ItemsSource = temp1;
         }
-        private async void initializeData()
+        private void initializeData()
         {
             priority1.Items.Clear();
             collective1.Items.Clear();
@@ -164,7 +166,6 @@ namespace TaskApp.View
         }
         private async Task<ObservableCollection<string>> LoadTeamMembers()
         {
-             string tableCommand;
              ObservableCollection<members> teams = new ObservableCollection<members>();
              ObservableCollection<string> select1 = new ObservableCollection<string>();
              if (pd.emp.designation == "manager")
@@ -439,6 +440,81 @@ namespace TaskApp.View
                 return;
             string prior = values[0];
             await tdl.Update(prior, pd.Selected, "startdate");
+        }
+        private void MenuFlyoutItemSettings(ObservableCollection<string> temp)
+        {
+            MenuFlyout flyout = new MenuFlyout();
+            foreach (var item in temp)
+            {
+                MenuFlyoutItem mi = new MenuFlyoutItem();
+                string[] values = item.Split(' ');
+                mi.Text = item;
+                mi.Click += filter_Click;
+                flyout.Items.Add(mi);
+            }
+            foreach (var item in flyout.Items)
+            {
+                filter.Items.Insert(filter.Items.Count, item);
+            }
+        }
+        private void filter_Click(object sender, RoutedEventArgs e)
+        {
+            tasks.ItemsSource = null;
+            ObservableCollection<TaskDetails> filter = new ObservableCollection<TaskDetails>();
+            MenuFlyoutItem selectedItemFlyout = sender as MenuFlyoutItem;
+            string value = selectedItemFlyout.Text.ToString();
+            if(value=="All")
+            {
+                filter = pd.tds;
+            }
+            else if(value == "Assigned by me")
+            {
+                foreach (var item in pd.tds)
+                {
+                    if (item.Assign_by_id == pd.emp.id)
+                        filter.Add(item);
+                }
+            }
+            else if(value!="")
+            {
+                string[] spit = value.Split(' ');
+                foreach (var item in pd.tds)
+                {
+                    if (item.Assign_to_id == spit[1])
+                        filter.Add(item);
+                }
+            }
+            if(filter.Count==0)
+                notask.Visibility = Visibility.Visible;
+            else
+                notask.Visibility = Visibility.Collapsed;
+            search = filter;
+            tasks.ItemsSource = filter;
+            try
+            {
+                tasks.SelectedItem = pd.Selected;
+            }
+            catch
+            {
+                tasks.SelectedIndex = -1;
+            }
+        }
+        private void SearchBox_QueryChanged(object sender, TextChangedEventArgs e)
+        {
+            if (search != null)
+            {
+                var values = search.Where(a => a.name.ToUpper().Contains(searchitem.Text.ToUpper()));
+                //tds = tds.Where(x => x.name.ToUpper().Contains(values));
+                tasks.ItemsSource = values;
+                try
+                {
+                    tasks.SelectedItem = pd.Selected;
+                }
+                catch
+                {
+                    tasks.SelectedIndex = -1;
+                }
+            }
         }
     }
 }

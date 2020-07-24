@@ -14,7 +14,7 @@
             <TextBox x:ConnectionId='3' x:Name="text" Text="{Binding priority,Mode=TwoWay}" Width="0" Height="0"                                />
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:ConnectionId='5' x:Name="Priority" Text="!" FontSize="18"  VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding name,Mode=TwoWay}" Width="250" TextWrapping="Wrap" MaxLines="1" FontSize="14"/>
+                <TextBlock Text="{Binding name,Mode=TwoWay}" Width="250" TextWrapping="Wrap" MaxLines="2" FontSize="14"/>
             </StackPanel>
             <TextBlock x:ConnectionId='4' x:Name="date1"  FontSize="12" Foreground="DimGray" Margin="0,0,0,5"/>
         </StackPanel>

@@ -10,7 +10,35 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Grid Loaded="StackPanel_Loaded">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Minimize">
+                    <VisualState.Setters>
+                        <Setter Target="mini.Visibility" Value="Visible"/>
+                        <Setter Target="Large.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600" MinWindowHeight="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="mini" Visibility="Collapsed">
+            <StackPanel Loaded="StackPanel_Loaded" Margin="0,0,0,0">
+                <TextBox x:Name="text" Text="{Binding priority,Mode=TwoWay}" Width="0" Height="0" TextChanged="text_TextChanged" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="Priority" Text="!" FontSize="22"  VerticalAlignment="Top"/>
+                    <TextBlock Text="{Binding name,Mode=TwoWay}" Width="350" TextWrapping="Wrap" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" MaxLines="1" FontSize="16"/>
+                </StackPanel>
+                <TextBlock x:Name="date1"  FontSize="12" Foreground="DimGray" Margin="0,0,0,5"/>
+            </StackPanel>
+        </Grid>
+        <Grid Loaded="StackPanel1_Loaded" x:Name="Large">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="460" />
                 <ColumnDefinition Width="150"/>
@@ -19,7 +47,7 @@
                 <ColumnDefinition Width="175"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="two" Text="{Binding name}"  MaxLines="1"  Margin="25,10,85,10" Grid.Column="0" TextWrapping="WrapWholeWords"/>
+            <TextBlock x:Name="two" Text="{Binding name}"  MaxLines="2"  Margin="25,10,10,10" Grid.Column="0" TextWrapping="WrapWholeWords"/>
             <TextBlock x:Name="three" Text="{Binding Assign_by}"  Margin="20,10,15,10" Grid.Column="1" TextWrapping="Wrap"/>
             <TextBlock x:Name="four" Text="{Binding status}" Margin="55,10,0,10" Grid.Column="2" TextWrapping="Wrap"/>
             <TextBlock x:Name="five" Text="{Binding createdDate}"  Margin="40,10,0,10" Grid.Column="3" TextWrapping="Wrap"/>

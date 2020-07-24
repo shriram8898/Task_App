@@ -70,8 +70,21 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalScrollMode="Enabled">
                 <Border BorderBrush="#D3D3D3"  BorderThickness="0,0,0.5,0">
                     <StackPanel>
-                        <TextBlock Text="Task" FontFamily="Times New Roman" FontSize="28" Margin="10,13,0,0"/>
-
+                        <RelativePanel>
+                            <TextBlock Text="Task" FontFamily="Times New Roman" FontSize="32" RelativePanel.AlignLeftWithPanel="True" Width="66"/>
+                            <Button RelativePanel.AlignRightWithPanel="True" Content="&#xE16E;" ToolTipService.ToolTip="Filter" FontFamily="Segoe MDL2 Assets" Height="29" Width="35">
+                                <Button.Flyout>
+                                    <MenuFlyout  Placement="Bottom">
+                                        <MenuFlyoutItem Text="All" Click="filter_Click"/>
+                                        <MenuFlyoutItem Text="Assigned by me" Click="filter_Click"/>
+                                        <MenuFlyoutSubItem x:Name="filter" Text="Assigned to"></MenuFlyoutSubItem>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
+                        </RelativePanel>
+                        <TextBox x:Name="searchitem" Width="240" TextChanged="SearchBox_QueryChanged" PlaceholderText="Search" Margin="0,5,0,5"
+                                   CornerRadius="8" />
+                        <TextBlock x:Name="notask" Text="No Task" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
                         <ListView x:Name="tasks" ItemsSource="{Binding td}" IsItemClickEnabled="True" ItemClick="tasks_ItemClick">
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="data:TaskDetails">
